@@ -30,7 +30,7 @@ public class UsuarioController {
 
     @PostMapping(value = "/usuario")
     public ResponseEntity<Usuario> criarPaciente(@RequestBody CreateUserDto createUserDto){
-        
+
         var usuario = new Usuario();
             usuario.setCpf(createUserDto.cpf());
             usuario.setNome(createUserDto.nome());
