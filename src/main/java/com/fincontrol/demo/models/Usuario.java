@@ -2,6 +2,7 @@ package com.fincontrol.demo.models;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -40,6 +41,10 @@ public class Usuario {
             inverseJoinColumns = @JoinColumn(name = "despesa_id")
     )
     private Set<Despesa> despesas;
+
+    @ManyToMany(mappedBy = "usuarios")
+    private Set<Investimento> investimentos = new HashSet<>();
+
 
     public Usuario() {}
 

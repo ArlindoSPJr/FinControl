@@ -1,5 +1,6 @@
 package com.fincontrol.demo.models;
 
 public interface InvestimentoPrecoObserver {
-    String update(double preco);
+    void update(Investimento investimento);
+    void registrarOperacao(Investimento investimento);
 }

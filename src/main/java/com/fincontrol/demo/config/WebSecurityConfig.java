@@ -34,11 +34,11 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         .cors(cors -> cors.configurationSource(corsConfigurationSource()))
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/usuario/**" ).permitAll()
+            .requestMatchers("/usuario/**", "/investimento/**" ).permitAll()
             .requestMatchers(HttpMethod.DELETE, "/usuario/cpf/**").permitAll()
-            .requestMatchers(HttpMethod.PUT, "/usuario/cpf/**").permitAll()
-            .requestMatchers(HttpMethod.GET, "/usuario/**").permitAll()
-            .requestMatchers(HttpMethod.POST, "/usuario/**").permitAll()
+            .requestMatchers(HttpMethod.PUT, "/usuario/cpf/**", "/investimento/**" ).permitAll()
+            .requestMatchers(HttpMethod.GET, "/usuario/**", "/investimento/**" ).permitAll()
+            .requestMatchers(HttpMethod.POST, "/usuario/**", "/investimento/**" ).permitAll()
         );
 
     return http.build();

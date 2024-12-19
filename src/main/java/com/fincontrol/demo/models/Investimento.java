@@ -1,14 +1,19 @@
 package com.fincontrol.demo.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import net.minidev.json.annotate.JsonIgnore;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
 @Table(name = "investimento")
+@JsonIgnoreProperties({"observerList"})
 public class Investimento {
 
     @Id
@@ -26,16 +31,26 @@ public class Investimento {
     @Column(name = "investimento_minimo")
     private Double minimo;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(
+            name = "user_investimento",
+            joinColumns = @JoinColumn(name = "investimento_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id") // Ajuste para a chave correta de Usuario
+    )
+    private Set<Usuario> usuarios = new HashSet<>();
+
     @Transient
+    @JsonIgnore
     private List<InvestimentoPrecoObserver> observerList = new ArrayList<>();
 
-    public Investimento() {}
+    public Investimento() {
+        this.observerList = new ArrayList<>();
+    }
 
     public Investimento(double preco, TipoInvestimento tipoInvestimento, Double minimo) {
         this.preco = preco;
         this.tipoInvestimento = tipoInvestimento;
         this.minimo = minimo;
-        this.observerList = new ArrayList<>();
     }
 
     public Long getId() {
@@ -76,5 +91,9 @@ public class Investimento {
 
     public void setObserverList(List<InvestimentoPrecoObserver> observerList) {
         this.observerList = observerList;
+    }
+
+    public void addObserver(InvestimentoPrecoObserver observer) {
+        observerList.add(observer);
     }
 }
