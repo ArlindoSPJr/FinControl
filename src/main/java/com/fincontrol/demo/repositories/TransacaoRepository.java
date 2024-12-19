@@ -6,11 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface TransacaoRepository extends JpaRepository<Transacao, Long> {
     Transacao findById(long id);
     Optional<Transacao> findByData(LocalDate data);
-    Optional<Transacao> findByUsuarioCpf(String cpf);
+    List<Transacao> findByUsuarioCpf(String cpf);
 }
