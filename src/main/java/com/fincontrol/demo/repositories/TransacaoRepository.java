@@ -12,6 +12,6 @@ import java.util.Optional;
 @Repository
 public interface TransacaoRepository extends JpaRepository<Transacao, Long> {
     Transacao findById(long id);
-    Optional<Transacao> findByData(LocalDate data);
+    List<Transacao> findByData(LocalDate data);
     List<Transacao> findByUsuarioCpf(String cpf);
 }

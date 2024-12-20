@@ -33,9 +33,8 @@ public class TransacaoService {
                 .orElseThrow(() -> new ResourceNotFoundException("Transação não encontrada com id:" + id));
     }
 
-    public Transacao obterPorData(LocalDate data) {
-        return transacaoRepository.findByData(data)
-                .orElseThrow(() -> new ResourceNotFoundException("Transação não encontrada na data: " + data));
+    public List<Transacao> obterPorData(LocalDate data) {
+        return transacaoRepository.findByData(data);
     }
 
     public List<Transacao> obterPorUserCpf(String cpf) {
