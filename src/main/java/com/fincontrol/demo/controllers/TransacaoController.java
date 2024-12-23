@@ -68,7 +68,15 @@ public class TransacaoController {
     @PutMapping("/{id}") // Endpoint: PUT /transacoes/{id}
     public ResponseEntity<Transacao> atualizarTransacao(@PathVariable Long id,
                                                         @RequestBody UpdateTransacaoDto updateTransacaoDto) {
+        System.out.println("Recebido no servidor: " + updateTransacaoDto);
         transacaoService.atualizarById(id, updateTransacaoDto);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Transacao> delearTransacao(@PathVariable Long id) {
+        Transacao transacao = transacaoService.obterPorId(id);
+        transacaoService.excluirTransacao(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
